@@ -105,7 +105,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 4
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -131,7 +131,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 5
   runSpeed: 8
-  jumpImpulse: 10
+  airWalkSpeed: 3
+  jumpImpulse: 16
   _isMoving: 0
   _isRunning: 0
 --- !u!114 &135954781073165433
@@ -308,7 +309,11 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   groundDistance: 0.05
+  wallDistance: 0.2
+  ceilingDistance: 0.05
   _isGrounded: 1
+  _isOnWall: 1
+  _isOnCeiling: 1
 --- !u!70 &2855725043877138031
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
