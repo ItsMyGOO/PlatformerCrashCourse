@@ -1,14 +1,28 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections))]
 public class PlayerController : MonoBehaviour
 {
     public float walkSpeed = 5f;
     public float runSpeed = 8f;
+    public float airWalkSpeed = 3f;
+    public float jumpImpulse = 10f;
     Vector2 moveInput;
 
-    public float CurrentMoveSpeed => IsMoving ? (IsRunning ? runSpeed : walkSpeed) : 0;
+    public float CurrentMoveSpeed
+    {
+        get
+        {
+            if (IsMoving && !touchingDirections.IsOnWall)
+            {
+                return IsRunning ? runSpeed : walkSpeed;
+            }
+            else return 0;
+        }
+    }
+
+    //=> (IsMoving && !touchingDirections.IsOnWall) ? (IsRunning ? runSpeed : walkSpeed) : 0;
 
     [SerializeField]
     private bool _isMoving = false;
@@ -51,26 +65,21 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb;
     Animator animator;
 
+    TouchingDirections touchingDirections;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        touchingDirections = GetComponent<TouchingDirections>();
     }
 
     private void FixedUpdate()
     {
         rb.velocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.velocity.y);
+
+        animator.SetFloat(AnimationStringHash.yVelocity, rb.velocity.y);
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -103,6 +112,15 @@ public class PlayerController : MonoBehaviour
         else if (context.canceled)
         {
             IsRunning = false;
+        }
+    }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if (context.started && touchingDirections.IsGrounded)
+        {
+            animator.SetTrigger(AnimationStringHash.jump);
+            rb.velocity = new Vector2(rb.velocity.x, jumpImpulse);
         }
     }
 }
