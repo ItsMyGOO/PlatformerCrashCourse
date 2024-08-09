@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2552064679343215382}
   - component: {fileID: 4167691864162271518}
   - component: {fileID: 135954781073165433}
+  - component: {fileID: 8569815364087549807}
   m_Layer: 0
   m_Name: Plyer
   m_TagString: Untagged
@@ -126,6 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c633615714f594099aa4c162cd4bfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  walkSpeed: 5
 --- !u!114 &135954781073165433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,3 +210,24 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!95 &8569815364087549807
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1872479055512361857}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f22512b4484a1d74182dabb67d3c308a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
