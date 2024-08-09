@@ -7,3 +7,6 @@ UserSettings
 MyMetroidvania.sln
 .idea
 obj
+.vs
+.vsconfig
+UpgradeLog.htm
