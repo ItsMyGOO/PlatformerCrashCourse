@@ -8,5 +8,7 @@ internal static class AnimationStringHash
     internal static int isOnWall = Animator.StringToHash("isOnWall");
     internal static int isOnCeiling = Animator.StringToHash("isOnCeiling");
     internal static int yVelocity = Animator.StringToHash("yVelocity");
-    internal static int jump = Animator.StringToHash("jump");
+    internal static int jumpTrigger = Animator.StringToHash("jump");
+    internal static int attackTrigger = Animator.StringToHash("attack");
+    internal static int canMove = Animator.StringToHash("canMove");
 }

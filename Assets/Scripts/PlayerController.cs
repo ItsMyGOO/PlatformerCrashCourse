@@ -14,6 +14,9 @@ public class PlayerController : MonoBehaviour
     {
         get
         {
+            if (!CanMove)
+                return 0;
+
             if (IsMoving && !touchingDirections.IsOnWall)
             {
                 return IsRunning ? runSpeed : walkSpeed;
@@ -62,6 +65,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public bool CanMove => animator.GetBool(AnimationStringHash.canMove);
+
     Rigidbody2D rb;
     Animator animator;
 
@@ -78,6 +83,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         rb.velocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.velocity.y);
+        SetFacingDirection(moveInput);
 
         animator.SetFloat(AnimationStringHash.yVelocity, rb.velocity.y);
     }
@@ -87,12 +93,12 @@ public class PlayerController : MonoBehaviour
         moveInput = context.ReadValue<Vector2>();
 
         IsMoving = moveInput != Vector2.zero;
-
-        SetFacingDirection(moveInput);
     }
 
     private void SetFacingDirection(Vector2 moveInput)
     {
+        if (!CanMove)
+            return;
         if (moveInput.x > 0 && !IsFacingRight)
         {
             IsFacingRight = true;
@@ -117,10 +123,18 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
+        if (context.started && touchingDirections.IsGrounded && CanMove)
+        {
+            animator.SetTrigger(AnimationStringHash.jumpTrigger);
+            rb.velocity = new Vector2(rb.velocity.x, jumpImpulse);
+        }
+    }
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
         if (context.started && touchingDirections.IsGrounded)
         {
-            animator.SetTrigger(AnimationStringHash.jump);
-            rb.velocity = new Vector2(rb.velocity.x, jumpImpulse);
+            animator.SetTrigger(AnimationStringHash.attackTrigger);
         }
     }
 }
