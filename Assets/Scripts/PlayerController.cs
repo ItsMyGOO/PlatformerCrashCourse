@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public bool CanMove => animator.GetBool(AnimationStringHash.canMove);
+    public bool IsAlive => animator.GetBool(AnimationStringHash.isAlive);
 
     Rigidbody2D rb;
     Animator animator;
