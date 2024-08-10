@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDamage: 10
+  knockback: {x: 0, y: 0}
 --- !u!1 &7036433277490511788
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,9 +296,9 @@ MonoBehaviour:
   groundDistance: 0.05
   wallDistance: 0.2
   ceilingDistance: 0.05
-  _isGrounded: 1
-  _isOnWall: 1
-  _isOnCeiling: 1
+  _isGrounded: 0
+  _isOnWall: 0
+  _isOnCeiling: 0
 --- !u!95 &8358249040454092186
 Animator:
   serializedVersion: 5
@@ -331,6 +332,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21ccf99652294884c9d25d3287c9d08d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageableHit:
+    m_PersistentCalls:
+      m_Calls: []
   _maxHealth: 100
   _health: 100
   isInvincible: 0

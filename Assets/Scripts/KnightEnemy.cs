@@ -10,7 +10,7 @@ public class KnightEnemy : MonoBehaviour
     TouchingDirections touchingDirections;
     Animator animator;
 
-    private WalkbleDirection _walkDirection = WalkbleDirection.Right;
+    private WalkbleDirection _walkDirection;
     public WalkbleDirection WalkDirection
     {
         get => _walkDirection;
@@ -31,7 +31,7 @@ public class KnightEnemy : MonoBehaviour
             _walkDirection = value;
         }
     }
-    private Vector2 walkDirectionVector;
+    private Vector2 walkDirectionVector = Vector2.right;
 
     public bool CanMove => animator.GetBool(AnimationStringHash.canMove);
 

@@ -15,7 +15,7 @@ public class TouchingDirections : MonoBehaviour
     RaycastHit2D[] ceilingHits = new RaycastHit2D[5];
 
     [SerializeField]
-    private bool _isGrounded = true;
+    private bool _isGrounded;
     public bool IsGrounded
     {
         get => _isGrounded;
@@ -27,7 +27,7 @@ public class TouchingDirections : MonoBehaviour
     }
 
     [SerializeField]
-    private bool _isOnWall = true;
+    private bool _isOnWall;
     public bool IsOnWall
     {
         get => _isOnWall;
@@ -39,7 +39,7 @@ public class TouchingDirections : MonoBehaviour
     }
 
     [SerializeField]
-    private bool _isOnCeiling = true;
+    private bool _isOnCeiling;
     public bool IsOnCeiling
     {
         get => _isOnCeiling;

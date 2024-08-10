@@ -324,9 +324,9 @@ MonoBehaviour:
   groundDistance: 0.05
   wallDistance: 0.2
   ceilingDistance: 0.05
-  _isGrounded: 1
-  _isOnWall: 1
-  _isOnCeiling: 1
+  _isGrounded: 0
+  _isOnWall: 0
+  _isOnCeiling: 0
 --- !u!70 &2855725043877138031
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
