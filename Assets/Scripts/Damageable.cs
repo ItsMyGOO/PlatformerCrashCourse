@@ -49,11 +49,6 @@ public class Damageable : MonoBehaviour
     private float timeSinceHit;
     public float invincibilityTime = 0.25f;
 
-    public bool  IsHit { 
-        get => animator.GetBool(AnimationStringHash.isHit);
-        set => animator.SetBool(AnimationStringHash.isHit, value);
-    }
-
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -80,7 +75,7 @@ public class Damageable : MonoBehaviour
             Health -= damage;
             isInvincible = true;
 
-            IsHit = true;
+            animator.SetTrigger(AnimationStringHash.hitTrigger);
             damageableHit?.Invoke(damage, knockback);
 
             return true;

@@ -1,7 +1,7 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections), typeof(Damageable))]
+[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections))]
 public class PlayerController : MonoBehaviour
 {
     public float walkSpeed = 5f;
@@ -65,12 +65,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // 不能主动移动，速度为0
     public bool CanMove => animator.GetBool(AnimationStringHash.canMove);
+    // 被动无法移动，速度保持不变
+    public bool LockVelocity => animator.GetBool(AnimationStringHash.lockVelocity);
     public bool IsAlive => animator.GetBool(AnimationStringHash.isAlive);
 
     Rigidbody2D rb;
     Animator animator;
-    Damageable damageable;
 
     TouchingDirections touchingDirections;
 
@@ -78,18 +80,16 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        damageable = GetComponent<Damageable>();
 
         touchingDirections = GetComponent<TouchingDirections>();
     }
 
     private void FixedUpdate()
     {
-        if (!damageable.IsHit)
-        {
-            rb.velocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.velocity.y);
+        if (CanMove)
             SetFacingDirection(moveInput);
-        }
+        if (!LockVelocity)
+            rb.velocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.velocity.y);
 
         animator.SetFloat(AnimationStringHash.yVelocity, rb.velocity.y);
     }
@@ -103,8 +103,6 @@ public class PlayerController : MonoBehaviour
 
     private void SetFacingDirection(Vector2 moveInput)
     {
-        if (!CanMove)
-            return;
         if (moveInput.x > 0 && !IsFacingRight)
         {
             IsFacingRight = true;

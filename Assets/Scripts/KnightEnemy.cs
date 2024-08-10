@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections))]
 public class KnightEnemy : MonoBehaviour
@@ -33,7 +33,10 @@ public class KnightEnemy : MonoBehaviour
     }
     private Vector2 walkDirectionVector = Vector2.right;
 
+    // 不能主动移动,速度为0
     public bool CanMove => animator.GetBool(AnimationStringHash.canMove);
+    // 被动无法移动，速度保持不变
+    public bool LockVelocity => animator.GetBool(AnimationStringHash.lockVelocity);
 
     void Awake()
     {
@@ -44,13 +47,15 @@ public class KnightEnemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (touchingDirections.IsGrounded && touchingDirections.IsOnWall)
+        if (!LockVelocity)
         {
-            FlipDirection();
-        }
+            if (touchingDirections.IsGrounded && touchingDirections.IsOnWall)
+                FlipDirection();
 
-        float xVelocity = CanMove ? walkSpeed * walkDirectionVector.x : Mathf.Lerp(rb.velocity.x, 0, walkStopRate);
-        rb.velocity = new Vector2(xVelocity, rb.velocity.y);
+            //float xVelocity = CanMove ? walkSpeed * walkDirectionVector.x : Mathf.Lerp(rb.velocity.x, 0, walkStopRate);
+            float xVelocity = CanMove ? walkSpeed * walkDirectionVector.x : 0;
+            rb.velocity = new Vector2(xVelocity, rb.velocity.y);
+        }
     }
 
     private void FlipDirection()
@@ -71,7 +76,7 @@ public class KnightEnemy : MonoBehaviour
 
     public enum WalkbleDirection { Right, Left }
 
-    #region ����
+    #region 攻击
     public DetectionZone attackZone;
 
     private bool _hasTarget = false;
@@ -87,6 +92,11 @@ public class KnightEnemy : MonoBehaviour
     private void Update()
     {
         HasTarget = attackZone.detectedColliders.Count > 0;
+    }
+
+    public void OnHit(int damage, Vector2 knockback)
+    {
+        rb.velocity = new Vector2(knockback.x, rb.velocity.y + knockback.y);
     }
 
     #endregion
