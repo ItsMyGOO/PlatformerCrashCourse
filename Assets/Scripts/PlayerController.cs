@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections))]
+[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections), typeof(Damageable))]
 public class PlayerController : MonoBehaviour
 {
     public float walkSpeed = 5f;
@@ -70,6 +70,7 @@ public class PlayerController : MonoBehaviour
 
     Rigidbody2D rb;
     Animator animator;
+    Damageable damageable;
 
     TouchingDirections touchingDirections;
 
@@ -77,14 +78,18 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        damageable = GetComponent<Damageable>();
 
         touchingDirections = GetComponent<TouchingDirections>();
     }
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.velocity.y);
-        SetFacingDirection(moveInput);
+        if (!damageable.IsHit)
+        {
+            rb.velocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.velocity.y);
+            SetFacingDirection(moveInput);
+        }
 
         animator.SetFloat(AnimationStringHash.yVelocity, rb.velocity.y);
     }
@@ -137,5 +142,10 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetTrigger(AnimationStringHash.attackTrigger);
         }
+    }
+
+    public void OnHit(int damage, Vector2 knockback)
+    {
+        rb.velocity = new Vector2(knockback.x, rb.velocity.y + knockback.y);
     }
 }

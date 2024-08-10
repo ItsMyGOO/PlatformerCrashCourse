@@ -26,12 +26,12 @@ AnimatorStateMachine:
   - {fileID: 2168445934606218811}
   m_EntryTransitions: []
   m_StateMachineTransitions:
-  - first: {fileID: 8257858359879353603}
-    second:
-    - {fileID: -3283299718703235200}
   - first: {fileID: 9167774237754445249}
     second:
     - {fileID: -5641820158353878382}
+  - first: {fileID: 8257858359879353603}
+    second:
+    - {fileID: -3283299718703235200}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 560, y: 210, z: 0}
   m_EntryPosition: {x: 50, y: 120, z: 0}
@@ -45,7 +45,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 2
+    m_ConditionEvent: hasTarget
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 0}
   m_Solo: 0
@@ -205,6 +208,7 @@ AnimatorState:
   m_Transitions: []
   m_StateMachineBehaviours:
   - {fileID: 6589610415818787528}
+  - {fileID: 6403083222308285625}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -263,6 +267,12 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 1
+    m_Controller: {fileID: 0}
+  - m_Name: isHit
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
     m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
@@ -344,6 +354,19 @@ MonoBehaviour:
   updateOnStateMachine: 0
   valueOnEnter: 0
   valueOnExit: 1
+--- !u!114 &6403083222308285625
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1618baddba6070b4ca4287cc60df30f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeTime: 0.5
 --- !u!114 &6589610415818787528
 MonoBehaviour:
   m_ObjectHideFlags: 1

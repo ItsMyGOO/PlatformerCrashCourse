@@ -13,4 +13,5 @@ internal static class AnimationStringHash
     internal static int canMove = Animator.StringToHash("canMove");
     internal static int hasTarget = Animator.StringToHash("hasTarget");
     internal static int isAlive = Animator.StringToHash("isAlive");
+    internal static int isHit = Animator.StringToHash("isHit");
 }
