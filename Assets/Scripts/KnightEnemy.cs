@@ -89,9 +89,17 @@ public class KnightEnemy : MonoBehaviour
         }
     }
 
+    public float AttackCooldown
+    {
+        get => animator.GetFloat(AnimationStringHash.attackCooldown);
+        set => animator.SetFloat(AnimationStringHash.attackCooldown, value);
+    }
+
     private void Update()
     {
         HasTarget = attackZone.detectedColliders.Count > 0;
+        if (AttackCooldown > 0)
+            AttackCooldown -= Time.deltaTime;
     }
 
     public void OnHit(int damage, Vector2 knockback)

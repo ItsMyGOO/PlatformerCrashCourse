@@ -15,4 +15,5 @@ internal static class AnimationStringHash
     internal static int isAlive = Animator.StringToHash("isAlive");
     internal static int hitTrigger = Animator.StringToHash("hit");
     internal static int lockVelocity = Animator.StringToHash("lockVelocity");
+    internal static int attackCooldown = Animator.StringToHash("attackCooldown");
 }
