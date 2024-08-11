@@ -83,4 +83,25 @@ public class Damageable : MonoBehaviour
         }
         return false;
     }
+
+    public bool Heal(int healthRestore)
+    {
+        if (!IsAlive)
+            return false;
+
+        if (Health == MaxHealth)
+            return false;
+
+        int currentHealth = Health;
+        int healthAfterHeal = currentHealth + healthRestore;
+        if (healthAfterHeal > MaxHealth)
+            healthAfterHeal = MaxHealth;
+
+        healthRestore = healthAfterHeal - currentHealth;
+
+        Health += healthRestore;
+        CharacterEvents.CharacterHealed?.Invoke(gameObject, healthRestore);
+
+        return true;
+    }
 }
