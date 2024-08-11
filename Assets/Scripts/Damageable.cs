@@ -77,6 +77,7 @@ public class Damageable : MonoBehaviour
 
             animator.SetTrigger(AnimationStringHash.hitTrigger);
             damageableHit?.Invoke(damage, knockback);
+            CharacterEvents.CharacterDamaged?.Invoke(gameObject, damage);
 
             return true;
         }
