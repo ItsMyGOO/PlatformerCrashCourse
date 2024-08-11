@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DetectionZone : MonoBehaviour
 {
     public List<Collider2D> detectedColliders = new List<Collider2D>();
     Collider2D col;
-
 
     private void Awake()
     {

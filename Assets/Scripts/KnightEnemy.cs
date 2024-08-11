@@ -8,6 +8,7 @@ public class KnightEnemy : MonoBehaviour
 
     Rigidbody2D rb;
     TouchingDirections touchingDirections;
+    public DetectionZone cliffDetection;
     Animator animator;
 
     private WalkbleDirection _walkDirection;
@@ -38,6 +39,9 @@ public class KnightEnemy : MonoBehaviour
     // 被动无法移动，速度保持不变
     public bool LockVelocity => animator.GetBool(AnimationStringHash.lockVelocity);
 
+    // 借由物理引擎的检测，在update中进行逻辑判断，之后再在fixUpdate中进行移动处理
+    bool cliffForward;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -49,13 +53,22 @@ public class KnightEnemy : MonoBehaviour
     {
         if (!LockVelocity)
         {
-            if (touchingDirections.IsGrounded && touchingDirections.IsOnWall)
+            if (touchingDirections.IsGrounded && touchingDirections.IsOnWall || cliffForward)
                 FlipDirection();
 
             //float xVelocity = CanMove ? walkSpeed * walkDirectionVector.x : Mathf.Lerp(rb.velocity.x, 0, walkStopRate);
             float xVelocity = CanMove ? walkSpeed * walkDirectionVector.x : 0;
             rb.velocity = new Vector2(xVelocity, rb.velocity.y);
         }
+    }
+
+    private void Update()
+    {
+        HasTarget = attackZone.detectedColliders.Count > 0;
+        if (AttackCooldown > 0)
+            AttackCooldown -= Time.deltaTime;
+
+        cliffForward = cliffDetection.detectedColliders.Count == 0;
     }
 
     private void FlipDirection()
@@ -93,13 +106,6 @@ public class KnightEnemy : MonoBehaviour
     {
         get => animator.GetFloat(AnimationStringHash.attackCooldown);
         set => animator.SetFloat(AnimationStringHash.attackCooldown, value);
-    }
-
-    private void Update()
-    {
-        HasTarget = attackZone.detectedColliders.Count > 0;
-        if (AttackCooldown > 0)
-            AttackCooldown -= Time.deltaTime;
     }
 
     public void OnHit(int damage, Vector2 knockback)
