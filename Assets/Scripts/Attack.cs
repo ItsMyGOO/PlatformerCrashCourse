@@ -10,8 +10,7 @@ public class Attack : MonoBehaviour
         Damageable damageable = collision.GetComponent<Damageable>();
         if (damageable != null)
         {
-            Vector2 knockbackDir = collision.transform.position - transform.position;
-            knockbackDir.Set(Mathf.Sign(knockbackDir.x), Mathf.Sign(knockbackDir.y));
+            Vector2 knockbackDir = new Vector2(Mathf.Sign(transform.lossyScale.x), 1);
             damageable.Hit(attackDamage, new Vector2(
                 knockbackDir.x * knockbackForce.x,
                 knockbackDir.y * knockbackForce.y));
