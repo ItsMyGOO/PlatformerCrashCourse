@@ -53,11 +53,11 @@ public class KnightEnemy : MonoBehaviour
     {
         if (!LockVelocity)
         {
-            if (touchingDirections.IsGrounded && touchingDirections.IsOnWall || cliffForward)
+            if (touchingDirections.IsGrounded && (touchingDirections.IsOnWall || cliffForward))
                 FlipDirection();
 
             //float xVelocity = CanMove ? walkSpeed * walkDirectionVector.x : Mathf.Lerp(rb.velocity.x, 0, walkStopRate);
-            float xVelocity = CanMove ? walkSpeed * walkDirectionVector.x : 0;
+            float xVelocity = touchingDirections.IsGrounded && CanMove ? walkSpeed * walkDirectionVector.x : 0;
             rb.velocity = new Vector2(xVelocity, rb.velocity.y);
         }
     }

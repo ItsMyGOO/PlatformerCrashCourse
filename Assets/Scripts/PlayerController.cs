@@ -25,8 +25,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //=> (IsMoving && !touchingDirections.IsOnWall) ? (IsRunning ? runSpeed : walkSpeed) : 0;
-
     [SerializeField]
     private bool _isMoving = false;
     public bool IsMoving
@@ -139,6 +137,14 @@ public class PlayerController : MonoBehaviour
         if (context.started && touchingDirections.IsGrounded)
         {
             animator.SetTrigger(AnimationStringHash.attackTrigger);
+        }
+    }
+
+    public void OnRangedAttack(InputAction.CallbackContext context)
+    {
+        if (context.started && touchingDirections.IsGrounded)
+        {
+            animator.SetTrigger(AnimationStringHash.rangedAttackTrigger);
         }
     }
 

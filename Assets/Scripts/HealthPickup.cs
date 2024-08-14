@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HealthPickup : MonoBehaviour
@@ -13,9 +11,8 @@ public class HealthPickup : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Damageable damageable = collision.GetComponent<Damageable>();
-
-        if (damageable != null)
+        
+        if (collision.TryGetComponent<Damageable>(out var damageable))
         {
             bool isHealled = damageable.Heal(healthRestore);
 

@@ -10,6 +10,7 @@ internal static class AnimationStringHash
     internal static int yVelocity = Animator.StringToHash("yVelocity");
     internal static int jumpTrigger = Animator.StringToHash("jump");
     internal static int attackTrigger = Animator.StringToHash("attack");
+    internal static int rangedAttackTrigger = Animator.StringToHash("rangedAttack");
     internal static int canMove = Animator.StringToHash("canMove");
     internal static int hasTarget = Animator.StringToHash("hasTarget");
     internal static int isAlive = Animator.StringToHash("isAlive");
