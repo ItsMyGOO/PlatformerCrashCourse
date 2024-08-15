@@ -3,7 +3,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public int damage = 10;
-    public Vector2 moveSpeed = new Vector2(3, 0);
+    public Vector2 moveSpeed = new(3, 0);
 
     Rigidbody2D rb;
 

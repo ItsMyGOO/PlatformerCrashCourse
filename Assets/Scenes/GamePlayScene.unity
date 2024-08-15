@@ -741,6 +741,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1862150407024956486, guid: 98ee283cb48862d41b9a97aa45fd585c, type: 3}
+      propertyPath: m_GravityScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7036433277490511788, guid: 98ee283cb48862d41b9a97aa45fd585c, type: 3}
       propertyPath: m_Name
       value: KnightEnemy (1)
@@ -751,11 +755,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7884753077781167440, guid: 98ee283cb48862d41b9a97aa45fd585c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.68
+      value: 3.503
       objectReference: {fileID: 0}
     - target: {fileID: 7884753077781167440, guid: 98ee283cb48862d41b9a97aa45fd585c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.254
+      value: 0.186
       objectReference: {fileID: 0}
     - target: {fileID: 7884753077781167440, guid: 98ee283cb48862d41b9a97aa45fd585c, type: 3}
       propertyPath: m_LocalPosition.z
