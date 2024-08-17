@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public float walkSpeed = 5f;
     public float runSpeed = 8f;
-    public float airWalkSpeed = 3f;
+    public float airWalkSpeed = 5;
     public float jumpImpulse = 10f;
     Vector2 moveInput;
 
@@ -16,12 +16,13 @@ public class PlayerController : MonoBehaviour
         {
             if (!CanMove)
                 return 0;
-
-            if (IsMoving && !touchingDirections.IsOnWall)
-            {
-                return IsRunning ? runSpeed : walkSpeed;
-            }
-            else return 0;
+            if (!IsMoving)
+                return 0;
+            if (touchingDirections.IsOnWall)
+                return 0;
+            if (!touchingDirections.IsGrounded)
+                return airWalkSpeed;
+            return IsRunning ? runSpeed : walkSpeed;
         }
     }
 
@@ -69,6 +70,8 @@ public class PlayerController : MonoBehaviour
     public bool LockVelocity => animator.GetBool(AnimationStringHash.lockVelocity);
     public bool IsAlive => animator.GetBool(AnimationStringHash.isAlive);
 
+    public bool AirAttack => animator.GetBool(AnimationStringHash.airAttack);
+
     Rigidbody2D rb;
     Animator animator;
 
@@ -87,7 +90,12 @@ public class PlayerController : MonoBehaviour
         if (CanMove)
             SetFacingDirection(moveInput);
         if (!LockVelocity)
-            rb.velocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.velocity.y);
+        {
+            if (AirAttack)
+                rb.velocity = Vector2.zero;
+            else
+                rb.velocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.velocity.y);
+        }
 
         animator.SetFloat(AnimationStringHash.yVelocity, rb.velocity.y);
     }
@@ -134,7 +142,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (context.started && touchingDirections.IsGrounded)
+        if (context.started)
         {
             animator.SetTrigger(AnimationStringHash.attackTrigger);
         }
