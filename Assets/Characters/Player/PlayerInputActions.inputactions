@@ -309,7 +309,7 @@
                     "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "RangedAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -406,6 +406,15 @@
                     "type": "PassThrough",
                     "id": "2059f92f-fa88-4f8c-ae10-74cb4912d444",
                     "expectedControlType": "Quaternion",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Escape",
+                    "type": "Button",
+                    "id": "4c9b6dc7-023a-434d-bd6d-8654986bfc2a",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -827,6 +836,17 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ab06c7ef-bac4-4266-b314-03b0f8e34247",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse;Touch",
+                    "action": "Escape",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
